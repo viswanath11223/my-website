@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Student Login - QIS College Authentication">
+    <meta name="theme-color" content="#0F172A">
+    <title>Student Login - QIS College</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/4a3b1f73a2.js" crossorigin="anonymous"></script>
+    <style>
+        body.login-page {
+            background: linear-gradient(135deg, #0a0e27 0%, #1a2332 100%);
+            min-height: 100vh;
+        }
+
+        .login-page .navbar {
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .login-main {
+            min-height: calc(100vh - 70px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 480px;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-card.hidden {
+            display: none;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .login-header h2 {
+            font-size: 32px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .login-header p {
+            color: #cbd5e1;
+            font-size: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #e2e8f0;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 12px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input::placeholder {
+            color: #94a3b8;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #38bdf8;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #cbd5e1;
+            cursor: pointer;
+        }
+
+        .remember-me input {
+            width: auto;
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            color: #38bdf8;
+            transition: all 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #0ea5e9;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 30px 0;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-login {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: #cbd5e1;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .social-btn:hover {
+            border-color: #38bdf8;
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+        }
+
+        .toggle-form {
+            text-align: center;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .toggle-form a {
+            color: #38bdf8;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .toggle-form a:hover {
+            color: #0ea5e9;
+        }
+
+        .checkbox-group {
+            margin: 20px 0;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #cbd5e1;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .checkbox-group input {
+            width: auto;
+            cursor: pointer;
+        }
+
+        .checkbox-group a {
+            color: #38bdf8;
+        }
+
+        @media (max-width: 768px) {
+            .login-card {
+                padding: 40px 24px;
+            }
+
+            .login-header h2 {
+                font-size: 24px;
+            }
+
+            .form-options {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .remember-me {
+                width: 100%;
+            }
+
+            .forgot-password {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="login-page">
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-brand">
+            <svg class="brand-logo" viewBox="0 0 40 40" fill="none">
+                <rect x="2" y="2" width="36" height="36" rx="8" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 28L20 8L32 28M14 20H26" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="brand-text">QIS College</span>
+        </div>
+        
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">Back to Home</a></li>
+        </ul>
+
+        <div class="nav-actions">
+        </div>
+    </div>
+</nav>
+
+
+<!-- ================= LOGIN SECTION ================= -->
+<div class="login-main">
+    <!-- SIGN IN CARD -->
+    <div class="login-card" id="signinBox">
+        <div class="login-header">
+            <h2>Welcome Back</h2>
+            <p>Sign in to your account to continue</p>
+        </div>
+        
+        <form class="login-form" onsubmit="handleSignIn(event)">
+            <div class="form-group">
+                <label for="signin-email">Email Address</label>
+                <input type="email" id="signin-email" placeholder="Enter your email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="signin-password">Password</label>
+                <input type="password" id="signin-password" placeholder="Enter your password" required>
+            </div>
+
+            <div class="form-options">
+                <label class="remember-me">
+                    <input type="checkbox"> Remember me
+                </label>
+                <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="login-btn">Sign In</button>
+        </form>
+
+        <div class="divider">
+            <span>OR</span>
+        </div>
+
+        <!-- SOCIAL LOGIN -->
+        <div class="social-login">
+            <button type="button" class="social-btn" onclick="handleGoogleLogin()" title="Sign in with Google">
+                <i class="fab fa-google"></i>
+                <span>Google</span>
+            </button>
+        </div>
+
+        <p class="toggle-form">Don't have an account? <a onclick="toggleForm(event)">Sign Up</a></p>
+    </div>
+
+    <!-- SIGN UP CARD -->
+    <div class="login-card hidden" id="signupBox">
+        <div class="login-header">
+            <h2>Create Account</h2>
+            <p>Join QIS College as a student today</p>
+        </div>
+        
+        <form class="login-form" onsubmit="handleSignUp(event)">
+            <div class="form-group">
+                <label for="signup-name">Full Name</label>
+                <input type="text" id="signup-name" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="signup-email">Email Address</label>
+                <input type="email" id="signup-email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="signup-phone">Phone Number</label>
+                <input type="tel" id="signup-phone" placeholder="Enter your phone number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" placeholder="Create a strong password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="signup-confirm">Confirm Password</label>
+                <input type="password" id="signup-confirm" placeholder="Confirm your password" required>
+            </div>
+
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" required> I agree to the <a href="#">Terms & Conditions</a>
+                </label>
+            </div>
+
+            <button type="submit" class="login-btn">Create Account</button>
+        </form>
+
+        <div class="divider">
+            <span>OR</span>
+        </div>
+
+        <!-- SOCIAL SIGNUP -->
+        <div class="social-login">
+            <button type="button" class="social-btn" onclick="handleGoogleSignUp()" title="Sign up with Google">
+                <i class="fab fa-google"></i>
+                <span>Google</span>
+            </button>
+            <button type="button" class="social-btn" onclick="handleTwitterSignUp()" title="Sign up with Twitter">
+                <i class="fab fa-twitter"></i>
+                <span>Twitter</span>
+            </button>
+        </div>
+
+        <p class="toggle-form">Already have an account? <a onclick="toggleForm(event)">Sign In</a></p>
+    </div>
+</div>
+
+<!-- ================= TOAST NOTIFICATION ================= -->
+<div id="loginToast" class="toast"></div>
+
+<script src="login-script.js"></script>
+
+</body>
+</html>
